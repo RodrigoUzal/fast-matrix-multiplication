@@ -68,7 +68,7 @@ Matrix standard_mul(const Matrix& A, const Matrix& B){
     for(int i = 0; i < A.rows; i++){
         for(int k = 0; k < A.cols; k++){
             double temp = A(i, k);
-            for(int j = 0; j < B.rows; j++){
+            for(int j = 0; j < B.cols; j++){
                 C(i, j) += temp * B(k, j);
             }
         }
@@ -78,10 +78,9 @@ Matrix standard_mul(const Matrix& A, const Matrix& B){
 }
 
 int main(){
-    int n = 20;
-    Matrix A(n, n);
+    Matrix A(3, 2);
     fill_random(A);
-    Matrix B(n, n);
+    Matrix B(2, 3);
     fill_random(B);
     std::cout << "Matrix A" << '\n';
     print(A);
