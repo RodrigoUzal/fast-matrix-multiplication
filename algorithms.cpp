@@ -29,4 +29,5 @@ Matrix strassen_mul(const Matrix& A, const Matrix& B){
     // To do
     (void)A;
     (void)B; // For now just ignore both parameters.
+    throw std::logic_error("strassen_mul is not implemented yet");
 }

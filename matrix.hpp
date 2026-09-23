@@ -5,6 +5,8 @@
 #include <random>
 #include <vector>
 
+#pragma once
+
 struct Matrix{
     int rows;
     int cols;
@@ -27,7 +29,7 @@ struct Matrix{
 
 // We also define a matrix automatic filler which will speed up the experimentation later on
 
-void fill_random(Matrix& mat){
+inline void fill_random(Matrix& mat){
     static std::random_device rd; // Hardware entropy source
     static std::mt19937 rng(rd());
     std::uniform_real_distribution<double> dist(0.0, 1.0); // All elements are between 0 and 1
@@ -36,7 +38,7 @@ void fill_random(Matrix& mat){
     }
 }
 
-void print(Matrix& mat){
+inline void print(Matrix& mat){
     for(int i = 0; i < mat.rows; i++){
         for(int j = 0; j < mat.cols; j++){
             std::cout << mat(i,j) << " ";
