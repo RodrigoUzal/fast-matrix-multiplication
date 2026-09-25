@@ -50,6 +50,7 @@ inline void print(Matrix& mat){
 
 
 // These are the two helper functions necessary for the implementation of Strassen
+
 inline Matrix add(const Matrix& A, const Matrix& B){
     if(A.rows != B.rows || A.cols != B.cols){
         throw std::invalid_argument("Dimensions mismatch for addition");
@@ -72,4 +73,24 @@ inline Matrix subtract(const Matrix& A, const Matrix& B){
         C.data[i] = A.data[i] - B.data[i];
     }
     return C;
+}
+
+// It returns the block starting at row0 and col0 of size "size"
+inline Matrix submatrix(const Matrix& A, int row0, int col0, int size){
+    Matrix S(size, size);
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
+            S(i, j) = A(row0 + i; col0 + j);
+        }
+    }
+    return S;
+}
+
+// Reconstructs matrix C
+inline void write_block(Matrix& C, const Matrix& block, int row0, int col0){
+    for(int i = 0; i < block.rows; i++){
+        for(int j = 0; j < block.cols; j++){
+            C(row0 + i, col0 + j) = block(i, j);
+        }
+    }
 }

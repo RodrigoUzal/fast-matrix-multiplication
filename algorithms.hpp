@@ -9,4 +9,5 @@
 // Standard Theta(n^3) multiplication, loop order i-k-j
 Matrix standard_mul(const Matrix& A, const Matrix& B);
 
-// Strassen's algorithm header will go here.
+// Strassen's algorithm header
+Matrix strassen_mul(const Matrix& A, const Matrix& B);
