@@ -1,0 +1,9 @@
+# Build output
+* .obj
+* .exe
+
+# Experiment data, regenerated on every run
+* .csv
+
+# Editor settings
+.vscode/
