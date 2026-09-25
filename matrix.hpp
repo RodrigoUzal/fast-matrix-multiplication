@@ -47,3 +47,29 @@ inline void print(Matrix& mat){
     }
     std::cout << std::endl;
 }
+
+
+// These are the two helper functions necessary for the implementation of Strassen
+inline Matrix add(const Matrix& A, const Matrix& B){
+    if(A.rows != B.rows || A.cols != B.cols){
+        throw std::invalid_argument("Dimensions mismatch for addition");
+    }
+    Matrix C(A.rows, A.cols);
+    const int n = A.rows * A.cols;
+    for (int i = 0; i < n; i++){
+        C.data[i] = A.data[i] + B.data[i];
+    }
+    return C;
+}
+
+inline Matrix subtract(const Matrix& A, const Matrix& B){
+    if(A.rows != B.rows || A.cols != B.cols){
+        throw std::invalid_argument("Dimensions mismatch for subtraction");
+    }
+    Matrix C(A.rows, A.cols);
+    const int n = A.rows * A.cols;
+    for (int i = 0; i < n; i++){
+        C.data[i] = A.data[i] - B.data[i];
+    }
+    return C;
+}
