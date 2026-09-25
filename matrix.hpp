@@ -80,7 +80,7 @@ inline Matrix submatrix(const Matrix& A, int row0, int col0, int size){
     Matrix S(size, size);
     for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++){
-            S(i, j) = A(row0 + i; col0 + j);
+            S(i, j) = A(row0 + i, col0 + j);
         }
     }
     return S;
