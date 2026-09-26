@@ -3,8 +3,6 @@
 
 #include "algorithms.hpp"
 
-// We must define a constant for the base case of Strassen
-constexpr int STRASSEN_CUTOFF = 64;
 
 Matrix standard_mul(const Matrix& A, const Matrix& B){
     // Check multiplication condition is fulfilled.
@@ -26,12 +24,12 @@ Matrix standard_mul(const Matrix& A, const Matrix& B){
 // Here I'll implement Strassen's algorithm
 
 // Define the recursive function itself
-static Matrix strassen_recursive(const Matrix& A, const Matrix& B){
+static Matrix strassen_recursive(const Matrix& A, const Matrix& B, int cutoff){
     // h now works for splitting both A and B into blocks as they have the same dimensions
     // This will not be the case if we deal with non perfect cases later on.
     int n = A.rows;
     // Base case
-    if(n <= STRASSEN_CUTOFF){
+    if(n <= cutoff){
         return standard_mul(A, B);
     }
     int h = n/2;
@@ -45,19 +43,19 @@ static Matrix strassen_recursive(const Matrix& A, const Matrix& B){
     Matrix B21 = submatrix(B, h, 0, h);
     Matrix B22 = submatrix(B, h, h, h);
     // Now we compute the M matrices defined by Strassen and call recusion for each multiplication
-    Matrix M1 = strassen_recursive(add(A11, A22), add(B11, B22));
-    Matrix M2 = strassen_recursive(add(A21, A22), B11);
-    Matrix M3 = strassen_recursive(A11, subtract(B12, B22));
-    Matrix M4 = strassen_recursive(A22, subtract(B21, B11));
-    Matrix M5 = strassen_recursive(add(A11, A12), B22);
-    Matrix M6 = strassen_recursive(subtract(A21, A11), add(B11, B12));
-    Matrix M7 = strassen_recursive(subtract(A12, A22), add(B21, B22));
+    Matrix M1 = strassen_recursive(add(A11, A22), add(B11, B22), cutoff);
+    Matrix M2 = strassen_recursive(add(A21, A22), B11, cutoff);
+    Matrix M3 = strassen_recursive(A11, subtract(B12, B22), cutoff);
+    Matrix M4 = strassen_recursive(A22, subtract(B21, B11), cutoff);
+    Matrix M5 = strassen_recursive(add(A11, A12), B22, cutoff);
+    Matrix M6 = strassen_recursive(subtract(A21, A11), add(B11, B12), cutoff);
+    Matrix M7 = strassen_recursive(subtract(A12, A22), add(B21, B22), cutoff);
 
     // Construct the solution matrix C
     Matrix C11 = subtract(add(add(M1, M4),M7), M5);
     Matrix C12 = add(M3, M5);
     Matrix C21 = add(M2, M4);
-    Matrix C22= add(subtract(M1, M2), add(M3, M6));
+    Matrix C22 = add(subtract(M1, M2), add(M3, M6));
 
     Matrix C(n, n);
     write_block(C, C11, 0, 0);
@@ -73,7 +71,7 @@ static bool is_power_of_two(int n){
     // render its "inverse" 0111 so the AND leads to 0
 }
 
-Matrix strassen_mul(const Matrix& A, const Matrix& B){
+Matrix strassen_mul(const Matrix& A, const Matrix& B, int cutoff){
     // An important design consideration that I realised while studying the algorithm is that, since we
     // are forced to divide the matrices into equal sized blocks, the easiest case to handle are 
     // square matrices. All testing will firstly be carried out with squared matrices. May be later on
@@ -87,5 +85,8 @@ Matrix strassen_mul(const Matrix& A, const Matrix& B){
     if(!is_power_of_two(A.rows)){
         throw std::invalid_argument("strasse_mul currently requires a size that is a power of 2");
     }
-    return strassen_recursive(A, B);
+    if(cutoff < 1){
+        throw std::invalid_argument("strassen_mul requires a cut-off of at least 1");
+    }
+    return strassen_recursive(A, B, cutoff);
 }

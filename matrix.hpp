@@ -4,6 +4,8 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <stdexcept> // (AI-assisted) std::invalid_argument, used by add/subtract; without it we rely on another header including it
+
 
 #pragma once
 
@@ -29,9 +31,7 @@ struct Matrix{
 
 // We also define a matrix automatic filler which will speed up the experimentation later on
 
-inline void fill_random(Matrix& mat){
-    static std::random_device rd; // Hardware entropy source
-    static std::mt19937 rng(rd());
+inline void fill_random(Matrix& mat, std::mt19937& rng){
     std::uniform_real_distribution<double> dist(0.0, 1.0); // All elements are between 0 and 1
     for(int i = 0; i < mat.rows * mat.cols; i++){
         mat.data[i] = dist(rng); // We fill each element of the matrix with a random value
