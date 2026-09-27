@@ -7,6 +7,11 @@ C++17 implementations of standard matrix multiplication (`i-k-j` loop order) and
 Strassen's algorithm with a run-time cut-off, an experiment harness that times
 and checks both, and a Python script that produces every figure in the report.
 
+## Deliverables
+
+- **Report:** [`report.pdf`](report.pdf)
+- **Video walkthrough:** PASTE-YOUR-VIDEO-LINK-HERE
+
 ## Repository layout
 
 | File | Contents |
