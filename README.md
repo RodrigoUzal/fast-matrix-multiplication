@@ -10,7 +10,7 @@ and checks both, and a Python script that produces every figure in the report.
 ## Deliverables
 
 - **Report:** [`report.pdf`](report.pdf)
-- **Video walkthrough:** PASTE-YOUR-VIDEO-LINK-HERE
+- **Video walkthrough:** https://youtu.be/txy9skScm3c
 
 ## Repository layout
 
