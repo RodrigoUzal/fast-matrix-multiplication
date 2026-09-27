@@ -1,6 +1,6 @@
 """Figures and summary numbers for the empirical study (report, Section 2).
  
-(AI-assisted), following the design we agreed on.
+(AI-assisted) Written with Claude (Anthropic), following the design we agreed on.
  
 Reads the CSV written by strassen.exe and, for each objective of Section 2.1, saves its figures
 to the figures/ folder as PDF and prints the numbers the report text quotes. Run it from the
