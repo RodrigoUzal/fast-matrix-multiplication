@@ -21,9 +21,8 @@ Matrix standard_mul(const Matrix& A, const Matrix& B){
     return C;
 }
 
-// Here I'll implement Strassen's algorithm
+// (AI-assisted) cutoff is now a parameter passed down the recursion instead of a constexpr.
 
-// Define the recursive function itself
 static Matrix strassen_recursive(const Matrix& A, const Matrix& B, int cutoff){
     // h now works for splitting both A and B into blocks as they have the same dimensions
     // This will not be the case if we deal with non perfect cases later on.
@@ -85,6 +84,7 @@ Matrix strassen_mul(const Matrix& A, const Matrix& B, int cutoff){
     if(!is_power_of_two(A.rows)){
         throw std::invalid_argument("strasse_mul currently requires a size that is a power of 2");
     }
+    // (AI-assisted) Rejects cutoff < 1, which would recurse into empty 0x0 blocks.
     if(cutoff < 1){
         throw std::invalid_argument("strassen_mul requires a cut-off of at least 1");
     }
