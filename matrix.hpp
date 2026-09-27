@@ -30,7 +30,7 @@ struct Matrix{
 };
 
 // We also define a matrix automatic filler which will speed up the experimentation later on
-
+// (AI-assisted) Takes a seeded generator from the caller so every matrix can be reproduced.
 inline void fill_random(Matrix& mat, std::mt19937& rng){
     std::uniform_real_distribution<double> dist(0.0, 1.0); // All elements are between 0 and 1
     for(int i = 0; i < mat.rows * mat.cols; i++){
